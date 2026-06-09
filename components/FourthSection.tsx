@@ -2,6 +2,7 @@
 
 import { motion, type Variants } from "framer-motion";
 import { useLang } from "@/lib/i18n";
+import Contact from "./Contact";
 
 /* Page 4 — About (detailed). Black background, white text, minimal editorial.
    Everything fades in + rises on scroll, staggered. Bilingual via useLang. */
@@ -56,7 +57,7 @@ function Heading({ children }: { children: React.ReactNode }) {
 }
 
 export default function FourthSection() {
-  const { t } = useLang();
+  const { t, lang } = useLang();
   const f = t.fourth;
 
   return (
@@ -145,6 +146,14 @@ export default function FourthSection() {
               </motion.div>
             ))}
           </motion.div>
+        </div>
+
+        {/* contact */}
+        <div className="mt-24">
+          <Reveal><Heading>{lang === "zh" ? "联系" : "Contact"}</Heading></Reveal>
+          <Reveal delay={0.05}>
+            <Contact />
+          </Reveal>
         </div>
       </div>
     </section>

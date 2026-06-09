@@ -2,6 +2,7 @@
 
 import { motion, useScroll, useSpring, useTransform } from "framer-motion";
 import { useLang } from "@/lib/i18n";
+import Contact from "./Contact";
 
 /* Page 2 — About (black). The content floats in ONLY AFTER the background has
    fully turned black. Reveal is driven by scroll progress (s = scrollY in
@@ -24,6 +25,8 @@ export default function SecondSection() {
   const roleY = useTransform(sp, [1.13, 1.38], [36, 0]);
   const introO = useTransform(sp, [1.19, 1.46], [0, 1]);
   const introY = useTransform(sp, [1.19, 1.46], [36, 0]);
+  const contactO = useTransform(sp, [1.26, 1.54], [0, 1]);
+  const contactY = useTransform(sp, [1.26, 1.54], [36, 0]);
 
   return (
     // tall section + sticky inner = the page "holds" / pauses on black while you scroll
@@ -56,6 +59,10 @@ export default function SecondSection() {
             >
               {t.second.intro}
             </motion.p>
+
+            <motion.div style={{ opacity: contactO, y: contactY }}>
+              <Contact compact className="mt-9 border-t border-white/10 pt-8" />
+            </motion.div>
           </div>
         </div>
       </div>
