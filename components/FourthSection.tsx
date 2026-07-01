@@ -3,6 +3,7 @@
 import { motion, type Variants } from "framer-motion";
 import { useLang } from "@/lib/i18n";
 import Contact from "./Contact";
+import FluidImage from "./FluidImage";
 
 /* Page 4 — About (detailed). Black background, white text, minimal editorial.
    Everything fades in + rises on scroll, staggered. Bilingual via useLang. */
@@ -140,8 +141,7 @@ export default function FourthSection() {
             {PHOTOS.map((src, i) => (
               <motion.div key={i} variants={photoItem} className="mb-4 break-inside-avoid sm:mb-5">
                 <div className="group overflow-hidden rounded-lg border border-white/10 transition-transform duration-500 ease-out hover:-translate-y-1 hover:scale-[1.02]">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={src} alt="" draggable={false} className="block h-auto w-full" />
+                  <FluidImage src={src} sizes="(max-width: 640px) 50vw, 300px" className="block" />
                 </div>
               </motion.div>
             ))}

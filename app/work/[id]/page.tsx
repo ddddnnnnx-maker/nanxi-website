@@ -1,9 +1,11 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useLang } from "@/lib/i18n";
 import { works } from "@/lib/works";
+import FluidImage from "@/components/FluidImage";
 
 /* Project detail. Row 1 = first image (left, 4:3 like the thumbnail) + title &
    description (right). Below: the project's images shown FULL WIDTH at their own
@@ -11,12 +13,11 @@ import { works } from "@/lib/works";
    taller image simply reads as "enlarged". Falls back to placeholder frames for
    ids that have no images yet. */
 
-function Pic({ src, dark }: { src: string; dark?: boolean }) {
+function Pic({ src, dark, sizes = "(max-width: 1152px) 100vw, 1152px" }: { src: string; dark?: boolean; sizes?: string }) {
   // natural ratio, full width, framed
   return (
     <div className={`overflow-hidden border ${dark ? "border-white/10" : "border-black/10"}`}>
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src={src} alt="" draggable={false} className="block h-auto w-full" />
+      <FluidImage src={src} sizes={sizes} className="block" />
     </div>
   );
 }
@@ -68,7 +69,7 @@ export default function ProjectDetail() {
       <div className="mx-auto w-full max-w-6xl">
         {/* row 1 — first image (4:3) left, title + description right */}
         <div className="mt-10 grid grid-cols-1 items-center gap-8 md:grid-cols-2 md:gap-12">
-          {work ? <Pic src={work.cover} dark={dark} /> : <Frame ratio="4 / 3" />}
+          {work ? <Pic src={work.cover} dark={dark} sizes="(max-width: 768px) 100vw, 576px" /> : <Frame ratio="4 / 3" />}
           <div>
             <h1 className="text-[clamp(2rem,4.5vw,3.4rem)] font-bold leading-[1.02] tracking-[-0.03em]">
               {work?.title ?? title}
@@ -114,9 +115,18 @@ export default function ProjectDetail() {
               style={{ gridTemplateColumns: `repeat(${work.heroCols}, minmax(0, 1fr))` }}
             >
               {work.heroshots.map((src) => (
-                <div key={src} className={`overflow-hidden border ${dark ? "border-white/10" : "border-black/10"}`}>
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={src} alt="" draggable={false} className="block aspect-[4/3] w-full object-cover" />
+                <div
+                  key={src}
+                  className={`relative aspect-[4/3] overflow-hidden border ${dark ? "border-white/10" : "border-black/10"}`}
+                >
+                  <Image
+                    src={src}
+                    alt=""
+                    fill
+                    sizes={`(max-width: 768px) 100vw, ${Math.round(1152 / (work.heroCols || 1))}px`}
+                    draggable={false}
+                    className="object-cover"
+                  />
                 </div>
               ))}
             </div>

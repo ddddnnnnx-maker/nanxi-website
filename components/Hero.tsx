@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import { heroImages } from "@/lib/projects";
 
 /* Seamless, endless horizontal 3D carousel.
@@ -141,7 +142,15 @@ export default function Hero() {
             style={{ transform: "perspective(900px) rotateY(-34deg)" }}
           >
             {/* any aspect ratio is cropped to the card shape */}
-            <img src={src} alt="" draggable={false} className="h-full w-full object-cover" />
+            <Image
+              src={src}
+              alt=""
+              fill
+              sizes="(max-width: 640px) 45vw, 230px"
+              draggable={false}
+              className="object-cover"
+              priority={i < heroImages.length}
+            />
             <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/10 to-white/5" />
           </div>
         ))}

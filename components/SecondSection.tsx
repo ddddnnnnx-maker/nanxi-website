@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { motion, useScroll, useSpring, useTransform } from "framer-motion";
 import { useLang } from "@/lib/i18n";
 import Contact from "./Contact";
@@ -36,7 +37,14 @@ export default function SecondSection() {
           {/* left — vertical 3:4 photo */}
           <motion.div style={{ opacity: photoO, y: photoY }}>
             <div className="relative aspect-[3/4] w-full max-w-[440px] overflow-hidden rounded-2xl border border-white/10 bg-[#1b1b20]">
-              <img src="/slide2/1.jpg" alt="" draggable={false} className="h-full w-full object-cover" />
+              <Image
+                src="/slide2/1.jpg"
+                alt=""
+                fill
+                sizes="(max-width: 768px) 90vw, 440px"
+                draggable={false}
+                className="object-cover"
+              />
             </div>
           </motion.div>
 

@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 import { useLang } from "@/lib/i18n";
@@ -151,7 +152,14 @@ export default function ThirdSection() {
                       {/* front */}
                       <div className="absolute inset-0 overflow-hidden border border-black/10 shadow-[0_18px_40px_-24px_rgba(0,0,0,0.25)] [backface-visibility:hidden]">
                         {cover ? (
-                          <img src={cover} alt="" draggable={false} className="h-full w-full object-cover" />
+                          <Image
+                            src={cover}
+                            alt=""
+                            fill
+                            sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 360px"
+                            draggable={false}
+                            className="object-cover"
+                          />
                         ) : tile.kind === "ui" ? (
                           <UIShot />
                         ) : tile.kind === "product" ? (
